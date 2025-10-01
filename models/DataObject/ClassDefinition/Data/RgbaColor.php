@@ -272,9 +272,9 @@ class RgbaColor extends Data implements
             }
         } elseif (!is_array($value) && !is_object($value)) {
             if ($operator === 'LIKE') {
-                $value = $db->quote('%' . $value . '%');
+                $value = $db->quote('%' . (string) $value . '%');
             } else {
-                $value = $db->quote($value);
+                $value = $db->quote((string) $value);
             }
         }
 

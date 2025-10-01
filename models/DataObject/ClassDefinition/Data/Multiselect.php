@@ -333,15 +333,15 @@ class Multiselect extends Data implements
 
             if (str_contains($name, 'cskey') && is_array($value) && !empty($value)) {
                 $values = array_map(function ($val) use ($db) {
-                    return $db->quote('%' .Helper::escapeLike($val). '%');
+                    return $db->quote('%' .Helper::escapeLike((string) $val). '%');
                 }, $value);
 
                 return $key . ' LIKE ' . implode(' OR ' . $key . ' LIKE ', $values);
             }
 
             $value = $operator === '='
-                ? $db->quote('%,'. $value . ',%')
-                : $db->quote('%,%' .Helper::escapeLike($value). '%,%');
+                ? $db->quote('%,'. (string) $value . ',%')
+                : $db->quote('%,%' .Helper::escapeLike((string) $value). '%,%');
 
             return $key.' LIKE '.$value.' ';
         }
